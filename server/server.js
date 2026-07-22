@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { gamesRouter } from './routes/rawg/games.js'
+import { rawgRouter } from './routes/rawg.js'
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use('api/rawg/games');
+app.use('/api/rawg', rawgRouter);
 
 
 app.get("/", (req, res) => {
