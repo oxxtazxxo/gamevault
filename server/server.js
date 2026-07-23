@@ -1,8 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 
 dotenv.config();
+connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,6 +15,12 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "GameVault API is running!" });
 });
+
+// teamates add their own line here as routes are built
+// app.use ("/api/auth", authRoutes);
+// app.user ("/api/games", gameRoutes);
+// (for example)
+app.use("/api/favorites", favoriteRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
