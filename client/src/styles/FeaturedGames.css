@@ -1,0 +1,42 @@
+.featured-games{
+    max-width: 1200px;
+    margin: 70px auto;
+    padding: 32px;
+
+    border: 1px solid #324d8f;
+    border-radius: 16px;
+
+    background: #0c14308c;
+}
+
+.featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.featured-header h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.view-all {
+    padding: 10px 20px;
+
+    border: 1px solid #4f73d9;
+    border-radius: 10px;
+
+    background: transparent;
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.view-all:hover {
+    background: #4f73d9;
+}

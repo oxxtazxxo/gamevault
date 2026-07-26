@@ -1,6 +1,7 @@
 import Hero from '../components/Hero'
 import SearchBar from "../components/SearchBar";
 import FilterBar from "../components/FilterBar";
+import FeaturedGames from "../components/FeaturedGames";
 
 function Home() {
   return (
@@ -8,6 +9,7 @@ function Home() {
       <Hero />
       <SearchBar />
       <FilterBar />
+      <FeaturedGames />
     </main>
   );
 }
