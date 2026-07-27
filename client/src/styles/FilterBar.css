@@ -1,0 +1,52 @@
+.filter-bar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 18px;
+  width: min(1100px, calc(100% - 48px));
+  margin: 32px auto 0;
+}
+
+.filter-bar label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-bar span {
+  color: #c9d2ff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.filter-bar select,
+.filter-bar button {
+  min-height: 48px;
+  border: 1px solid #4f73d9;
+  border-radius: 10px;
+  background-color: #08102f;
+  color: #ffffff;
+  font: inherit;
+}
+
+.filter-bar select {
+  padding: 0 14px;
+}
+
+.filter-bar button {
+  align-self: end;
+  padding: 0 20px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.filter-bar button:hover {
+  background-color: #142250;
+}
+
+@media (max-width: 800px) {
+  .filter-bar {
+    grid-template-columns: 1fr;
+  }
+}
