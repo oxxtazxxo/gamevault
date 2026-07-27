@@ -36,7 +36,7 @@ rawgRouter.get('/search/:search', async (req, res) => {
         // RAWG determines ascending or descending by putting a '-' in front of the sort type if it is descending
         var ordering = req.body.sort_type;
         if(req.body.sort_order == 'desc') ordering = '-' + ordering;
-        queryParams += `ordering=${ordering}`;
+        queryParams += `&ordering=${ordering}`;
         // iterates through all the different filters and adds them to the query string
         if(req.body.filters) {
             for(const key of Object.keys(req.body.filters)){
