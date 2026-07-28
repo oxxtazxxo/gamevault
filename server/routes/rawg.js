@@ -2,57 +2,32 @@ import express from 'express';
 export const rawgRouter = express.Router();
 var nextPageQuery = null;
 var prevPageQuery = null;
+const filterTypes = ['parent_platforms', 'platforms', 'stores', 'developers', 'publishers', 'genres', 'tags', 'creators', 'dates', 'updated', 'platforms_count', 'metacritic'];
 
-/*
-    Body json format:
-    {
-        page_size: int, // amount of games per page
-        sort_type: String, // name, released, added, created, updated, rating, metacritic
-        sort_order: String, // asc or desc
-        filters: { // for filters, only add the filters that are active, if there are no filters leave it empty
-            parent_platforms: [], // by id
-            platforms: [], // by id
-            stores: [], // by id
-            developers: [], // by id or string
-            publishers: [], // by id or string
-            genres: [], // by id or string
-            tags: [], // by id or string
-            creators: [], // by id or string
-            dates: [], // string, yyyy-mm-dd
-            updated: [], // string, yyyy-mm-dd
-            platforms_count: [], // int
-            metacritic: [] // int
-        }
-    }
-*/
-// GET /api/rawg/search/{search input string}
+// GET /api/rawg/search/{search input string}?{query parameters}
+// Incoming req.query parameters should include page_size, sort_type, sort_order, and any filters.
+// If a filter type has multiple values, they should be sent in csv format I.E. &filter_type=value1,value2,value3
 // Fetches the game results from the RAWG api using the paramaters provided in the url and body object.
 rawgRouter.get('/search/:search', async (req, res) => {
     nextPageQuery = null;
     prevPageQuery = null;
     try{
         // string that holds the parameters sent to the RAWG api
-        var queryParams = `&page_size=${req.body.page_size}`;
-        // RAWG determines ascending or descending by putting a '-' in front of the sort type if it is descending
-        var ordering = req.body.sort_type;
-        if(req.body.sort_order == 'desc') ordering = '-' + ordering;
-        queryParams += `&ordering=${ordering}`;
-        // iterates through all the different filters and adds them to the query string
-        if(req.body.filters) {
-            for(const key of Object.keys(req.body.filters)){
-                queryParams += `&${key}=`;
-                if(Array.isArray(req.body.filters[key])){
-                    req.body.filters[key].forEach((value, index) => {
-                        if(index != 0){
-                            queryParams += `,`;
-                        }
-                        queryParams += `${value}`;
-                    })
-                }
-            }
+        var queryString = `?key=${process.env.API_KEY}&search=${req.params.search}&page_size=${req.query.page_size || 10}`;
+        if(req.query.sort_type){
+            var ordering = req.query.sort_type;
+            // RAWG handles sort order by adding a '-' to the front of the sort type if it is descending
+            if(req.query.sort_order && req.query.sort_order == 'desc') ordering = '-' + ordering;
+            queryString += `&ordering=${ordering}`;
         }
+        // iterates through all the different filters and adds them to the query string
+        filterTypes.forEach((filter) => {
+            if(filter in req.query){
+                queryString += `&${filter}=${req.query[filter]}`;
+            }
+        });
         // performs the fetch to the RAWG api
-        const results = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${req.params.search}${queryParams}`);
+        const results = await fetch(`https://api.rawg.io/api/games${queryString}`);
         const data = await results.json();
         // saves the query string for the next page of results
         nextPageQuery = data.next;
