@@ -1,8 +1,8 @@
 import "../styles/FeaturedGames.css";
 import GameCard from "./GameCard";
 
-// Temporary placeholder data until the RAWG API is connected.
-const featuredGames = [
+// Display these games before the user performs a search.
+const placeholderGames = [
   {
     id: 1,
     title: "Elden Ring",
@@ -33,26 +33,39 @@ const featuredGames = [
   },
 ];
 
+function FeaturedGames({ games = [] }) {
+  // Use live RAWG results after a search, or placeholders on initial load.
+  const displayedGames =
+    games.length > 0
+      ? games.map((game) => ({
+          id: game.id,
+          title: game.name,
+          rating: game.rating,
+          releaseDate: game.released || "Release date unavailable",
+          genres: game.genres?.map((genre) => genre.name) || [],
+          image: game.background_image,
+        }))
+      : placeholderGames;
 
-function FeaturedGames() {
   return (
     <section className="featured-games">
-      <div className="featured-header">
-        <h2>Featured Games</h2>
+      <header className="featured-header">
+        <h2>{games.length > 0 ? "Search Results" : "Featured Games"}</h2>
 
         <button type="button" className="view-all">
           View All
         </button>
-      </div>
+      </header>
 
       <div className="game-grid">
-        {featuredGames.map((game) => (
+        {displayedGames.map((game) => (
           <GameCard
             key={game.id}
             title={game.title}
             rating={game.rating}
             releaseDate={game.releaseDate}
             genres={game.genres}
+            image={game.image}
           />
         ))}
       </div>
