@@ -15,13 +15,20 @@ function Home() {
   // store any error message returned during the search request.
   const [error, setError] = useState("");
 
+  // store the currently selected game filters
+  const [filters, setFilters] = useState({
+    genres: "",
+    platforms: "",
+    dates: "",
+  });
+
   // request matching games from the express backend
   async function handleSearch(searchTerm) {
     setIsLoading(true);
     setError("");
 
     try {
-      const searchResults = await searchGames(searchTerm);
+      const searchResults = await searchGames(searchTerm, filters);
       setGames(searchResults);
     } catch (requestError) {
       console.error("Unable to search for games:", requestError);
@@ -30,6 +37,14 @@ function Home() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function handleResetFilters() {
+    setFilters({
+      genres: "",
+      platforms: "",
+      dates: "",
+    });
   }
 
   return (
@@ -41,7 +56,11 @@ function Home() {
         isLoading={isLoading}
       />
 
-      <FilterBar />
+      <FilterBar 
+        filters={filters}
+        onFilterChange={setFilters}
+        onReset={handleResetFilters}
+      />
       {/* Display an error message if the backend request fails. */}
       {error && <p role="alert">{error}</p>}
 

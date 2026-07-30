@@ -1,26 +1,49 @@
 const API_BASE_URL = "http://localhost:5000";
 
-// Searches the backend for games matching the user's query
-// and returns the list of results from the RAWG API
-export async function searchGames(searchTerm, pageSize = 8) {
-
-    // Remove any accidental whitespace from the user's search.
+// Search the backend for games matching the user's query and filters.
+// Return only the list of RAWG game results needed by the frontend.
+export async function searchGames(
+    searchTerm,
+    filters = {},
+    pageSize = 8
+) {
+    // Remove accidental whitespace from the user's search.
     const trimmedSearch = searchTerm.trim();
 
-    // Don't send an API request if the search box is empty.
-    if(!trimmedSearch) {
+    // Do not send an API request if the search box is empty.
+    if (!trimmedSearch) {
         return [];
     }
 
-    // Build the request URL for the backend search endpoint.
-    const url = `${API_BASE_URL}/api/rawg/search/${encodeURIComponent(trimmedSearch)}` + `?page_size=${pageSize}`;
+    // Store the query parameters sent to the Express backend.
+    const queryParameters = new URLSearchParams({
+        page_size: pageSize.toString(),
+    });
+
+    // Add only filters that currently have a selected value.
+    if (filters.genres) {
+        queryParameters.append("genres", filters.genres);
+    }
+
+    if (filters.platforms) {
+        queryParameters.append("platforms", filters.platforms);
+    }
+
+    if (filters.dates) {
+        queryParameters.append("dates", filters.dates);
+    }
+
+    // Build the complete backend request URL.
+    const url =
+        `${API_BASE_URL}/api/rawg/search/` +
+        `${encodeURIComponent(trimmedSearch)}?${queryParameters.toString()}`;
 
     // Send the request to the Express backend.
     const response = await fetch(url);
 
     // Throw an error if the backend returns an unsuccessful status code.
-    if(!response.ok) {
-        throw new Error (`Search failed with status ${response.status}`);
+    if (!response.ok) {
+        throw new Error(`Search failed with status ${response.status}`);
     }
 
     // Convert the JSON response into a JavaScript object.
