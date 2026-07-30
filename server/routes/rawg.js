@@ -1,7 +1,9 @@
 import express from 'express';
 export const rawgRouter = express.Router();
+// contain the RAWG api fetch url for the next and previous pages of paginated results.
 var nextPageQuery = null;
 var prevPageQuery = null;
+//list of filter parameters that could be present in the query request from the front end.
 const filterTypes = ['parent_platforms', 'platforms', 'stores', 'developers', 'publishers', 'genres', 'tags', 'creators', 'dates', 'updated', 'platforms_count', 'metacritic'];
 
 // GET /api/rawg/search/{search input string}?{query parameters}
@@ -36,7 +38,7 @@ rawgRouter.get('/search/:search', async (req, res) => {
         res.status(200).json(resultPayload);
     }catch(err){
         console.log(err);
-        res.status(400).json({status: 400, message: 'bad request'})
+        res.status(400).json({status: 400, message: err})
     }
 });
 
@@ -47,8 +49,10 @@ rawgRouter.get('/next', async (req, res) => {
         try{
             const results = await fetch(nextPageQuery);
             const data = await results.json();
+            // saves the query string for the next and previous page of results
             nextPageQuery = data.next;
             prevPageQuery = data.previous;
+            // data payload to be sent back to frontend. count = amount of total results, next = flag for a next page, prev = flag for a previous page
             var resultPayload = {status: 200, data: { count: data.count, next: nextPageQuery != null, prev: true, results: data.results}}
             res.status(200).json(resultPayload);
         }catch (err){
@@ -68,6 +72,7 @@ rawgRouter.get('/prev', async (req, res) => {
             const data = await results.json();
             nextPageQuery = data.next;
             prevPageQuery = data.previous;
+            // data payload to be sent back to frontend. count = amount of total results, next = flag for a next page, prev = flag for a previous page
             var resultPayload = {status: 200, data: { count: data.count, next: true, prev: prevPageQuery != null, results: data.results}}
             res.status(200).json(resultPayload);
         }catch (err){
