@@ -31,7 +31,9 @@ rawgRouter.get('/search/:search', async (req, res) => {
         const data = await results.json();
         // saves the query string for the next page of results
         nextPageQuery = data.next;
-        res.status(200).json({status: 200, data: { count: data.count, results: data.results}});
+        // data payload to be sent back to frontend. count = amount of total results, next = flag for a next page, prev = flag for a previous page
+        var resultPayload = {status: 200, data: { count: data.count, next: nextPageQuery != null, prev: false, results: data.results}};
+        res.status(200).json(resultPayload);
     }catch(err){
         console.log(err);
         res.status(400).json({status: 400, message: 'bad request'})
@@ -47,7 +49,8 @@ rawgRouter.get('/next', async (req, res) => {
             const data = await results.json();
             nextPageQuery = data.next;
             prevPageQuery = data.previous;
-            res.status(200).json({status: 200, data: { count: data.count, results: data.results}});
+            var resultPayload = {status: 200, data: { count: data.count, next: nextPageQuery != null, prev: true, results: data.results}}
+            res.status(200).json(resultPayload);
         }catch (err){
             res.status(400).json({status: 400, message: err});
         }
@@ -65,7 +68,8 @@ rawgRouter.get('/prev', async (req, res) => {
             const data = await results.json();
             nextPageQuery = data.next;
             prevPageQuery = data.previous;
-            res.status(200).json({status: 200, data: { count: data.count, results: data.results}});
+            var resultPayload = {status: 200, data: { count: data.count, next: true, prev: prevPageQuery != null, results: data.results}}
+            res.status(200).json(resultPayload);
         }catch (err){
             res.status(400).json({status: 400, message: err});
         }
