@@ -18,7 +18,14 @@ GameVault is a full-stack web application that allows gamers to create an accoun
 | `API_KEY`   | RAWG API key                            | 324adwsd3dasdf3tr3q3asjuk63zxf65                                                             |
 | `MONGO_URI` | URI link to your MongoDB Atlas instance | mongodb://mongo_db_username:mongo_password@ac-lowthoa-shard-00-00.hmarfvv.mongodb.net:123456 |
 
-- **_INSERT ADDITIONAL DB SETUP STEPS HERE_**
+- **Atlas Database Setup**
+  - Ask a teammate to add you as a database user on the shared GameVault Atlas cluster (or create your own free cluster and share the connection details with the team)
+  - In Atlas, go to **Network Access** → **Add IP Address** → **Allow Access from Anywhere** (`0.0.0.0/0`) — required since teammates connect from different networks
+  - Go to **Database Access** → create a database user with a username/password (this is separate from your Atlas login)
+  - Go to **Connect** → **Drivers** → copy your connection string
+  - Paste it into `MONGO_URI` in your `.env`, replacing `<username>` and `<password>` with your database user's credentials
+  - **Note:** if you get a `querySrv ECONNREFUSED` error on Windows, your network's DNS may be blocking the `mongodb+srv://` lookup. Either switch your DNS to `8.8.8.8` / `8.8.4.4` in Windows network settings, or use the non-SRV connection string format (`mongodb://host1,host2,host3/...`) available under Atlas's **Connect** → **Drivers** page
+  - Once connected, MongoDB collections (`users`, `favorites`) are created automatically on first write — no manual collection setup needed
 - start server via `npm start`
 
 ### Frontend Setup
