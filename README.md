@@ -42,6 +42,6 @@ GameVault is a full-stack web application that allows gamers to create an accoun
 | GET    | /api/rawg/search/:search | No            | Performs search query to RAWG API when input from search bar is received        | N/A                  | 200 OK          |
 | GET    | /api/rawg/next           | No            | Performs search query to RAWG API to get the next page of paginated results     | N/A                  | 200 OK          |
 | GET    | /api/rawg/prev           | No            | Performs search query to RAWG API to get the previous page of paginated results | N/A                  | 200 OK          |
-| GET    | /api/favorites           | ??????        | ???????                                                                         | ????????             | 200 OK          |
-| POST   | /api/favorites           | ??????        | ???????                                                                         | ????????             | 201 Created     |
-| DELETE | /api/favorites/:id       | ??????        | ???????                                                                         | ????????             | 200 OK          |
+| GET    | /api/favorites           | ??????        | Returns all favorites from logged in user                                       | N/A                  | 200 OK          |
+| POST   | /api/favorites           | ??????        | Adds a game to the logged in user's favorites                                   | { "rawgId": 3498, "title": "GTA V", "coverImage": "..." }             | 201 Created     |
+| DELETE | /api/favorites/:id       | ??????        | Removes favorite by database ID                                                 | N/A                  | 200 OK          |
