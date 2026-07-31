@@ -31,8 +31,8 @@ function validatePageSize(pageSize){
 }
 
 // This function validates the sort type sent from the frontend
-function validateSortType(sortType){
-    if(!sortTypes.includes(sortType)) throw new Error(`Invalid input: '${sortType}' is not a valid sort type`);
+function validateOrdering(ordering){
+    if(!sortTypes.includes(ordering)) throw new Error(`Invalid input: '${ordering}' is not a valid sort type`);
 }
 
 // This function makes sure that the genre filter list sent from the frontend only contains the genres listed in filterTypes
@@ -66,32 +66,34 @@ function validateDates(dateList){
 }
 
 // GET /api/rawg/search/{search input string}?{query parameters}
-// Incoming req.query parameters should include page_size, sort_type, sort_order, and any filters.
+// Incoming req.query parameters must include page_size, optional parameters: ordering, genres, platforms, dates
 // If a filter type has multiple values, they should be sent in csv format I.E. &filter_type=value1,value2,value3
 // Fetches the game results from the RAWG api using the paramaters provided in the url and body object.
 rawgRouter.get('/search/:search', async (req, res) => {
     nextPageQuery = null;
     prevPageQuery = null;
     try{
-        // string that holds the parameters sent to the RAWG api
-        validateSearchInput(req.params.search);
+        // string that holds the parameters sent to the RAWG api. Trims to remove leading and trailing whitespace
+        const searchInput = req.params.search.trim();
+        validateSearchInput(searchInput);
         validatePageSize(req.query.page_size);
-        var queryString = `?key=${process.env.API_KEY}&search=${req.params.search}&page_size=${req.query.page_size || 10}`;
-        if('sort_type' in req.query && req.query.sort_type != ''){
-            validateSortType(req.query.sort_type);
-            var ordering = req.query.sort_type;
-            // RAWG handles sort order by adding a '-' to the front of the sort type if it is descending
-            if(req.query.sort_order && req.query.sort_order == 'desc') ordering = '-' + ordering;
-            queryString += `&ordering=${ordering}`;
+        var queryString = `?key=${process.env.API_KEY}&search=${searchInput}&page_size=${req.query.page_size || 10}`;
+        // checks for all optional search parameters
+        if('ordering' in req.query && req.query.ordering != ''){
+            validateOrdering(req.query.ordering);
+            queryString += `&ordering=${req.query.ordering}`;
         }
         if('genres' in req.query && req.query.genres != ''){
             validateGenres(req.query.genres);
+            queryString += `&genres=${req.query.genres}`;
         }
         if('platforms' in req.query && req.query.platforms != ''){
             validatePlatforms(req.query.platforms);
+            queryString += `&platforms=${req.query.platforms}`;
         }
         if('dates' in req.query && req.query.dates != ''){
             validateDates(req.query.dates);
+            queryString += `&dates=${req.query.dates}`;
         }
         // performs the fetch to the RAWG api
         const results = await fetch(`https://api.rawg.io/api/games${queryString}`);
