@@ -4,7 +4,7 @@ export const rawgRouter = express.Router();
 var nextPageQuery = null;
 var prevPageQuery = null;
 
-
+//list of sort types that could be present in the query request from the front end
 const sortTypes = ['released', 'rating', 'name']
 
 //list of filter parameters that could be present in the query request from the front end.
@@ -14,11 +14,14 @@ const filterTypes = {
     dates: ['2026-01-01','2026-12-31','2025-01-01','2025-12-31','2024-01-01','2024-12-31','2023-01-01','2023-12-31','2022-01-01','2022-12-31','2021-01-01','2021-12-31','2020-01-01','2020-12-31']
 }
 
+// This function validates the search input, making sure it is within 2-60 characters, and it contains atleast one letter or number
 function validateSearchInput(input){
     const minLength = 2;
     const maxLength = 60;
 
+    //tests for valid character length
     if (input.length < minLength || input.length > maxLength) throw new Error(`Invalid input: Search text must be ${minLength}-${maxLength} characters.`);
+    //checks if search input contains atleast one letter or number
     if(!(/[a-zA-Z0-9]/.test(input))) throw new Error(`Invalid input: Search text must contain atleast one letter or number`);
 }
 
