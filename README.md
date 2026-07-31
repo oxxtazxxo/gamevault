@@ -1,5 +1,5 @@
 # GameVault - Full-Stack Video Game Search Application
-GameVault is a full-stack web application that allows gamers to create an account, search for games of all the current platforms, them to a list of favorites.
+GameVault is a full-stack web application that allows gamers to create an account, search for games of all the current platforms, then add them to a list of favorites.
 
 ## Local Installation and Setup
 
