@@ -6,13 +6,16 @@ import SparkleCursor from "./components/SparkleCursor";
 
 function App() {
     return (
-        <div className="app-container">
-            <Navbar />
-            <Home />
-            <Footer />
-
+        <>
             <SparkleCursor />
-        </div>
+
+            <div className="app-container">
+                <Navbar />
+                <Home />
+                <Footer />
+
+            </div>
+        </>
     );
 }
 export default App;
