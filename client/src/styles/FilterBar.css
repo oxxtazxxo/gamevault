@@ -1,8 +1,13 @@
 .filter-bar {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  grid-template-columns:
+    minmax(220px, 1fr)
+    minmax(220px, 1fr)
+    170px
+    160px
+    180px;
   gap: 18px;
-  width: min(1100px, calc(100% - 48px));
+  width: min(1200px, calc(100% - 48px));
   margin: 32px auto 0;
 }
 

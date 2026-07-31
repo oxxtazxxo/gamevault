@@ -1,10 +1,11 @@
 import "../styles/FilterBar.css";
 
 import {
-    LuGamepad2,
-    LuMonitor,
-    LuCalendarDays,
-    LuRotateCcw,
+    LuGamepad2, // genre icon
+    LuMonitor, // platform icon
+    LuCalendarDays, // release year icon
+    LuArrowUpDown, // adds the up down icons for sorting
+    LuRotateCcw, // reset icon
 } from "react-icons/lu";
 
 function FilterBar({ filters, onFilterChange, onReset }) {
@@ -86,6 +87,24 @@ function FilterBar({ filters, onFilterChange, onReset }) {
                     <option value="2022-01-01,2022-12-31">2022</option>
                     <option value="2021-01-01,2021-12-31">2021</option>
                     <option value="2020-01-01,2020-12-31">2020</option>
+                </select>
+            </label>
+
+            <label>
+                <span className="filter-label">
+                    <LuArrowUpDown />
+                    <span>Sort By</span>
+                </span>
+
+                <select
+                    name="ordering"
+                    value={filters.ordering}
+                    onChange={handleChange}
+                >
+                    <option value="">Relevance</option>
+                    <option value="rating">Rating</option>
+                    <option value="released">Release Date</option>
+                    <option value="name">Name (A–Z)</option>
                 </select>
             </label>
 

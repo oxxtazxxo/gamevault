@@ -7,20 +7,3 @@
   min-height: 100vh;
   z-index: 1;
 }
-
-.sparkle-overlay {
-  position: fixed;
-  inset: 0;
-
-  background-image: url("./assets/images/sparkles_transparent.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  opacity: 0.22;
-
-  pointer-events: none;
-  user-select: none;
-
-  z-index: 0;
-}
