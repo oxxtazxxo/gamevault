@@ -3,8 +3,56 @@ export const rawgRouter = express.Router();
 // contain the RAWG api fetch url for the next and previous pages of paginated results.
 var nextPageQuery = null;
 var prevPageQuery = null;
+
+
+const sortTypes = ['released', 'rating', 'name']
+
 //list of filter parameters that could be present in the query request from the front end.
-const filterTypes = ['parent_platforms', 'platforms', 'stores', 'developers', 'publishers', 'genres', 'tags', 'creators', 'dates', 'updated', 'platforms_count', 'metacritic'];
+const filterTypes = {
+    genres: ['action','adventure','indie','role-playing-games-rpg','shooter','strategy','simulation','sports','racing','puzzle'],
+    platforms: ['4','187','18','186','1','7'],
+    dates: ['2026-01-01','2026-12-31','2025-01-01','2025-12-31','2024-01-01','2024-12-31','2023-01-01','2023-12-31','2022-01-01','2022-12-31','2021-01-01','2021-12-31','2020-01-01','2020-12-31']
+}
+
+// This function validates the page size sent from the frontend
+function validatePageSize(pageSize){
+    if(pageSize < 4 || pageSize > 32) throw new Error(`Invalid page size. Must be >= 4 or <= 32`);
+}
+
+// This function validates the sort type sent from the frontend
+function validateSortType(sortType){
+    if(!sortTypes.includes(sortType)) throw new Error(`Invalid input: '${sortType}' is not a valid sort type`);
+}
+
+// This function makes sure that the genre filter list sent from the frontend only contains the genres listed in filterTypes
+function validateGenres(genreList){
+    const genres = genreList.split(',');
+    genres.forEach((genre) => {
+        if(!filterTypes.genres.includes(genre)){
+            throw new Error(`Invalid genre filter input: '${genre}' is not a valid genre`);
+        }
+    })
+}
+
+// This function makes sure that the platform filter list sent from the frontend only contains the platform ids listed in filterTypes
+function validatePlatforms(platformList){
+    const platforms = platformList.split(',');
+    platforms.forEach((platform) => {
+        if (!filterTypes.platforms.includes(platform)){
+            throw new Error(`Invalid platform filter input: '${platform}' is not a valid platform id`);
+        }
+    })
+}
+
+// This function makes sure that the dates filter list sent from the frontend only contains the dates listed in filterTypes
+function validateDates(dateList){
+    const dates = dateList.split(',');
+    dates.forEach((date) => {
+        if(!filterTypes.dates.includes(date)){
+            throw new Error(`Invalid date filter input: '${date}' is not a valid date`);
+        }
+    })
+}
 
 // GET /api/rawg/search/{search input string}?{query parameters}
 // Incoming req.query parameters should include page_size, sort_type, sort_order, and any filters.
@@ -16,18 +64,23 @@ rawgRouter.get('/search/:search', async (req, res) => {
     try{
         // string that holds the parameters sent to the RAWG api
         var queryString = `?key=${process.env.API_KEY}&search=${req.params.search}&page_size=${req.query.page_size || 10}`;
-        if(req.query.sort_type){
+        validatePageSize(req.query.page_size);
+        if('sort_type' in req.query && req.query.sort_type != ''){
+            validateSortType(req.query.sort_type);
             var ordering = req.query.sort_type;
             // RAWG handles sort order by adding a '-' to the front of the sort type if it is descending
             if(req.query.sort_order && req.query.sort_order == 'desc') ordering = '-' + ordering;
             queryString += `&ordering=${ordering}`;
         }
-        // iterates through all the different filters and adds them to the query string
-        filterTypes.forEach((filter) => {
-            if(filter in req.query){
-                queryString += `&${filter}=${req.query[filter]}`;
-            }
-        });
+        if('genres' in req.query && req.query.genres != ''){
+            validateGenres(req.query.genres);
+        }
+        if('platforms' in req.query && req.query.platforms != ''){
+            validatePlatforms(req.query.platforms);
+        }
+        if('dates' in req.query && req.query.dates != ''){
+            validateDates(req.query.dates);
+        }
         // performs the fetch to the RAWG api
         const results = await fetch(`https://api.rawg.io/api/games${queryString}`);
         const data = await results.json();
@@ -38,7 +91,7 @@ rawgRouter.get('/search/:search', async (req, res) => {
         res.status(200).json(resultPayload);
     }catch(err){
         console.log(err);
-        res.status(400).json({status: 400, message: err})
+        res.status(400).json({status: 400, message: err.message})
     }
 });
 
