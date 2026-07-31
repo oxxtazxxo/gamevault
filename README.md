@@ -18,7 +18,7 @@ GameVault is a full-stack web application that allows gamers to create an accoun
 | `API_KEY`   | RAWG API key                            | 324adwsd3dasdf3tr3q3asjuk63zxf65                                                             |
 | `MONGO_URI` | URI link to your MongoDB Atlas instance | mongodb://mongo_db_username:mongo_password@ac-lowthoa-shard-00-00.hmarfvv.mongodb.net:123456 |
 
-- {INSERT ADDITIONAL DB SETUP STEPS HERE}
+- **_INSERT ADDITIONAL DB SETUP STEPS HERE_**
 - start server via `npm start`
 
 ### Frontend Setup
