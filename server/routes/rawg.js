@@ -14,6 +14,14 @@ const filterTypes = {
     dates: ['2026-01-01','2026-12-31','2025-01-01','2025-12-31','2024-01-01','2024-12-31','2023-01-01','2023-12-31','2022-01-01','2022-12-31','2021-01-01','2021-12-31','2020-01-01','2020-12-31']
 }
 
+function validateSearchInput(input){
+    const minLength = 2;
+    const maxLength = 60;
+
+    if (input.length < minLength || input.length > maxLength) throw new Error(`Invalid input: Search text must be ${minLength}-${maxLength} characters.`);
+    if(!(/[a-zA-Z0-9]/.test(input))) throw new Error(`Invalid input: Search text must contain atleast one letter or number`);
+}
+
 // This function validates the page size sent from the frontend
 function validatePageSize(pageSize){
     if(pageSize < 4 || pageSize > 32) throw new Error(`Invalid page size. Must be >= 4 or <= 32`);
@@ -63,8 +71,9 @@ rawgRouter.get('/search/:search', async (req, res) => {
     prevPageQuery = null;
     try{
         // string that holds the parameters sent to the RAWG api
-        var queryString = `?key=${process.env.API_KEY}&search=${req.params.search}&page_size=${req.query.page_size || 10}`;
+        validateSearchInput(req.params.search);
         validatePageSize(req.query.page_size);
+        var queryString = `?key=${process.env.API_KEY}&search=${req.params.search}&page_size=${req.query.page_size || 10}`;
         if('sort_type' in req.query && req.query.sort_type != ''){
             validateSortType(req.query.sort_type);
             var ordering = req.query.sort_type;
