@@ -1,5 +1,12 @@
 import "../styles/FilterBar.css";
 
+import {
+    LuGamepad2,
+    LuMonitor,
+    LuCalendarDays,
+    LuRotateCcw,
+} from "react-icons/lu";
+
 function FilterBar({ filters, onFilterChange, onReset }) {
     // Update the matching filter whenever a dropdown selection changes.
     function handleChange(event) {
@@ -14,7 +21,11 @@ function FilterBar({ filters, onFilterChange, onReset }) {
     return (
         <section className="filter-bar" aria-label="Game filters">
             <label>
-                <span>Genre</span>
+
+                <span className="filter-label">
+                    <LuGamepad2 />
+                    <span>Genre</span>
+                </span>
 
                 <select
                     name="genres"
@@ -36,7 +47,10 @@ function FilterBar({ filters, onFilterChange, onReset }) {
             </label>
 
             <label>
-                <span>Platform</span>
+                <span className="filter-label">
+                    <LuMonitor />
+                    <span>Platform</span>
+                </span>
 
                 <select
                     name="platforms"
@@ -54,7 +68,10 @@ function FilterBar({ filters, onFilterChange, onReset }) {
             </label>
 
             <label>
-                <span>Release Year</span>
+                <span className="filter-label">
+                    <LuCalendarDays />
+                    <span>Release Year</span>
+                </span>
 
                 <select
                     name="dates"
@@ -73,8 +90,13 @@ function FilterBar({ filters, onFilterChange, onReset }) {
             </label>
 
             {/* Clear every selected filter and return the dropdowns to default. */}
-            <button type="button" onClick={onReset}>
-                Reset Filters
+            <button
+                type="button"
+                className="reset-button"
+                onClick={onReset}
+            >
+                <LuRotateCcw />
+                <span>Reset Filters</span>
             </button>
         </section>
     );
