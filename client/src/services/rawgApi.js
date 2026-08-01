@@ -33,6 +33,10 @@ export async function searchGames(
         queryParameters.append("dates", filters.dates);
     }
 
+    if (filters.ordering && filters.ordering !== "relevance") {
+    queryParameters.append("ordering", filters.ordering);
+    }
+
     // Build the complete backend request URL.
     const url =
         `${API_BASE_URL}/api/rawg/search/` +
