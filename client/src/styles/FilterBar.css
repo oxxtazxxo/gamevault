@@ -1,8 +1,13 @@
 .filter-bar {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  grid-template-columns:
+    minmax(220px, 1fr)
+    minmax(220px, 1fr)
+    170px
+    160px
+    180px;
   gap: 18px;
-  width: min(1100px, calc(100% - 48px));
+  width: min(1200px, calc(100% - 48px));
   margin: 32px auto 0;
 }
 
@@ -12,7 +17,7 @@
   gap: 8px;
 }
 
-.filter-bar span {
+.filter-bar label > span {
   color: #c9d2ff;
   font-size: 0.85rem;
   font-weight: 600;
@@ -49,4 +54,39 @@
   .filter-bar {
     grid-template-columns: 1fr;
   }
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-weight: 600;
+  color: #d7e3ff;
+}
+
+.filter-label svg {
+  font-size: 1.15rem;
+  color: #57a8ff;
+
+  flex-shrink: 0;
+}
+
+.reset-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.reset-button svg {
+  font-size: 1rem;
+}
+
+.filter-label span {
+  letter-spacing: .5px;
+}
+
+.filter-bar label:hover .filter-label svg {
+    color: lime;
 }

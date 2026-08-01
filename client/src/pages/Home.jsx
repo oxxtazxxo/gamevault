@@ -20,6 +20,7 @@ function Home() {
     genres: "",
     platforms: "",
     dates: "",
+    ordering: "",
   });
 
   // request matching games from the express backend
@@ -44,6 +45,7 @@ function Home() {
       genres: "",
       platforms: "",
       dates: "",
+      ordering: "",
     });
   }
 

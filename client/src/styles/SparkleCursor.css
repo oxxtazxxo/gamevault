@@ -1,0 +1,35 @@
+/* 
+   Creates a sparkle spotlight that follows the user's cursor.
+   The radial mask reveals only a circular portion of the sparkle
+   texture, fading smoothly toward the edges.
+*/
+
+.sparkle-cursor {
+    position: fixed;
+    inset: 0;
+
+    background-image: url("../assets/images/sparkles_transparent.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    pointer-events: none;
+    z-index: 9999;
+
+    /* Feathered circular mask centered on the cursor position. */
+    mask-image: radial-gradient(
+        circle 220px at var(--mouse-x) var(--mouse-y),
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.8) 35%,
+        rgba(0,0,0,.35) 60%,
+        rgba(0,0,0,0) 100%
+    );
+
+    -webkit-mask-image: radial-gradient(
+        circle 220px at var(--mouse-x) var(--mouse-y),
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,.8) 35%,
+        rgba(0,0,0,.35) 60%,
+        rgba(0,0,0,0) 100%
+    );
+}
