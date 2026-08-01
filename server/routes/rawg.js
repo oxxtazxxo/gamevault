@@ -4,8 +4,8 @@ export const rawgRouter = express.Router();
 var nextPageQuery = null;
 var prevPageQuery = null;
 
-//list of sort types that could be present in the query request from the front end
-const sortTypes = ['released', 'rating', 'name']
+//list of sort types that could be present in the query request from the front end. '-' in front means descending
+const sortTypes = ['released', '-released', 'rating', '-rating', 'name', '-name'];
 
 //list of filter parameters that could be present in the query request from the front end.
 const filterTypes = {
