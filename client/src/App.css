@@ -7,3 +7,88 @@
   min-height: 100vh;
   z-index: 1;
 }
+
+/* ------------------------------ */
+/* Login Page                     */
+/* ------------------------------ */
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    padding: 3rem;
+}
+
+.login-card {
+    width: 420px;
+    background: rgba(17, 27, 73, 0.95);
+    border: 1px solid #3b63ff;
+    border-radius: 18px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(59, 99, 255, 0.2);
+}
+
+.login-card h1 {
+    margin-bottom: .5rem;
+}
+
+.login-card p {
+    margin-bottom: 1.5rem;
+    color: #cfd8ff;
+}
+
+.login-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-card input {
+    background: #0d153d;
+    border: 1px solid #456eff;
+    color: white;
+    padding: .9rem;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.login-card button {
+    margin-top: .5rem;
+}
+
+/* Login Buttons */
+
+.login-card button {
+    width: 100%;
+    padding: 0.9rem;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #5f7eea;
+    color: white;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.login-card button:hover {
+    background: #7693ff;
+    transform: translateY(-2px);
+}
+
+.login-card button:active {
+    transform: translateY(0);
+}
+
+.register-text {
+    margin-top: 1.5rem;
+    margin-bottom: .75rem;
+    color: #cfd8ff;
+}
