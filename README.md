@@ -1,5 +1,82 @@
+
 # GameVault - Full-Stack Video Game Search Application
 GameVault is a full-stack web application that allows gamers to create an account, search for games of all the current platforms, then add them to a list of favorites.
+
+## Features
+
+- Search for games using the RAWG Video Games API
+- Filter games by genre, platform, release year, and rating
+- Sort search results by title, release date, and rating
+- Create a user account
+- Secure user authentication with JWT
+- Save favorite games
+- Responsive React interface
+- User profile page
+
+## Technologies
+
+### Frontend
+- React
+- Vite
+- CSS
+- React Icons
+
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MongoDB Atlas
+- Mongoose
+
+### Authentication
+- JWT
+- bcryptjs
+
+### API
+- RAWG Video Games API
+
+### Frontend Features
+
+- Responsive React interface built with reusable components.
+- Modern dark-themed GameVault UI with consistent styling.
+- Search bar and filtering interface.
+- Featured Games section.
+- Navigation bar and footer shared across pages.
+- Login and registration pages.
+- User profile page displaying logged-in user information.
+- Sparkle cursor visual effect throughout the site.
+
+### Authentication
+
+- User registration and login connected to the Express backend.
+- JWT authentication implemented.
+- Logged-in user information stored in Local Storage.
+- Secure logout functionality.
+- Profile page loads authenticated user information.
+
+## Future Improvements
+
+- Favorites database integration
+- User game collections
+- Advanced search filters
+- User avatars
+- Recently viewed games
+- Dark/Light theme toggle
+
+### Frontend Design
+
+The interface was built using reusable React components with semantic HTML elements where appropriate to improve readability, organization, and accessibility.
+
+## Team Members
+
+| Member | Responsibility |
+|---------|----------------|
+| Alyssa Scott | Frontend, UI/UX, React Components, Integration |
+| Lucas Brown | Backend API, RAWG Integration |
+| Francisco Tejeda-Villarreal | Authentication & JWT |
+| Grayson Siver | MongoDB Database |
+
 
 ## Local Installation and Setup
 
