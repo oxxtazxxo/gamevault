@@ -5,6 +5,7 @@ import { logger } from './middleware/logger.js';
 import { rawgRouter } from './routes/rawg.js';
 import connectDB from "./config/db.js";
 import favoriteRoutes from "./routes/favoriteRoutes.js";
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -23,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 // teamates add their own line here as routes are built
-// app.use ("/api/auth", authRoutes);
+app.use('/api/auth', authRoutes);
 // app.user ("/api/games", gameRoutes);
 // (for example)
 app.use("/api/favorites", favoriteRoutes);

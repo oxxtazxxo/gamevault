@@ -1,11 +1,14 @@
 import "../styles/Navbar.css";
 import logo from "../assets/images/gamevault-logo.png";
 import logo2x from "../assets/images/gamevault-logo@2x.png";
+// import navigation links from react router
+import { Link } from "react-router-dom";
 
+// website nav links from react router
 function Navbar() {
   return (
     <header className="navbar">
-      <a href="/" className="logo" aria-label="GameVault home">
+      <Link to="/" className="logo" aria-label="GameVault home">
         <img
           src={logo}
           srcSet={`${logo} 1x, ${logo2x} 2x`}
@@ -13,18 +16,18 @@ function Navbar() {
         />
 
         <span>GameVault</span>
-      </a>
-
+      </Link>
+      
       <nav className="nav-links" aria-label="Main navigation">
-        <a href="/">Home</a>
-        <a href="#">Browse</a>
-        <a href="#">Favorites</a>
-        <a href="#">Top Rated</a>
+        <Link to="/">Home</Link>
+        <Link to="/">Browse</Link>
+        <Link to="/favorites">Favorites</Link>
+        <Link to="/">Top Rated</Link>
       </nav>
 
-      <button type="button" className="login">
+      <Link to="/login" className="login">
         Login
-      </button>
+      </Link>
     </header>
   );
 }
