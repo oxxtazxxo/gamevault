@@ -1,0 +1,8 @@
+POST http://localhost:5000/api/favorites
+Content-Type: application/json
+
+{
+    "rawgId": 3498,
+    "title": Grand Theft Auto V",
+    "coverImg": "https://example.com/image.jpg"
+}
