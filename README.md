@@ -1,59 +1,80 @@
+<p align="center">
+  <img src="Screenshots/gamevault-logo@2x.png" width="220">
+</p>
 
-# GameVault - Full-Stack Video Game Search Application
-GameVault is a full-stack web application that allows gamers to create an account, search for games of all the current platforms, then add them to a list of favorites.
+<h1 align="center">GameVault</h1>
 
-## Features
+<p align="center">
+Discover. Track. Save.
+</p>
 
-- Search for games using the RAWG Video Games API
-- Filter games by genre, platform, release year, and rating
-- Sort search results by title, release date, and rating
-- Create a user account
-- Secure user authentication with JWT
-- Save favorite games
-- Responsive React interface
-- User profile page
+## Overview
 
-## Technologies
+GameVault is a full-stack web application built for gamers who want a simple way to discover new titles, search across multiple platforms, and manage their favorite games.
 
-### Frontend
-- React
-- Vite
-- CSS
-- React Icons
+The application combines the RAWG Video Games API with a React frontend, Express backend, MongoDB Atlas database, and JWT authentication to create a modern game discovery experience.
 
-### Backend
-- Node.js
-- Express.js
+## Key Features
 
-### Database
-- MongoDB Atlas
-- Mongoose
+### Game Discovery
+- Search for games using RAWG
+- Browse multiple platforms
+- View game information
 
-### Authentication
-- JWT
-- bcryptjs
+### User Accounts
+- Registration
+- Login
+- JWT Authentication
+- User Profile
 
-### API
-- RAWG Video Games API
+### Interface
+- Responsive React UI
+- Search filters
+- Sorting
+- Modern design
 
-### Frontend Features
+### Homepage
 
-- Responsive React interface built with reusable components.
-- Modern dark-themed GameVault UI with consistent styling.
-- Search bar and filtering interface.
-- Featured Games section.
-- Navigation bar and footer shared across pages.
-- Login and registration pages.
-- User profile page displaying logged-in user information.
-- Sparkle cursor visual effect throughout the site.
+Browse featured games, search the RAWG database, and quickly navigate through the application
 
-### Authentication
+![Homepage](Screenshots/Homepage.png)
 
-- User registration and login connected to the Express backend.
-- JWT authentication implemented.
-- Logged-in user information stored in Local Storage.
-- Secure logout functionality.
-- Profile page loads authenticated user information.
+### Search
+
+Search thousands of games using the RAWG Video Games API.
+
+![Search](Screenshots/Search.png)
+
+### Search Results
+
+Browse detailed search results complete with ratings, release dates, and supported platforms.
+
+![Search Results](Screenshots/Search_2.png)
+
+### Login
+
+Create an account or securely sign in to access personalized features.
+
+![Login](Screenshots/Login.png)
+
+### User Profile
+
+View your account information and manage your authenticated session.
+
+![Profile](Screenshots/Profile.png)
+
+## Technology Stack
+
+| Layer | Technologies |
+|--------|--------------|
+| 🎨 Frontend | React, Vite, CSS3, React Icons |
+| ⚙️ Backend | Node.js, Express.js |
+| 🗄️ Database | MongoDB Atlas, Mongoose |
+| 🔐 Authentication | JSON Web Tokens (JWT), bcryptjs |
+| 🎮 API | RAWG Video Games Database API |
+| 📦 Version Control | Git, GitHub |
+
+GameVault combines a modern React frontend with an Express backend, MongoDB Atlas for persistent storage, JWT authentication for secure user sessions, and the RAWG Video Games API to deliver game discovery and user account functionality.
 
 ## Future Improvements
 
@@ -64,18 +85,14 @@ GameVault is a full-stack web application that allows gamers to create an accoun
 - Recently viewed games
 - Dark/Light theme toggle
 
-### Frontend Design
-
-The interface was built using reusable React components with semantic HTML elements where appropriate to improve readability, organization, and accessibility.
-
 ## Team Members
 
 | Member | Responsibility |
 |---------|----------------|
-| Alyssa Scott | Frontend, UI/UX, React Components, Integration |
-| Lucas Brown | Backend API, RAWG Integration |
-| Francisco Tejeda-Villarreal | Authentication & JWT |
-| Grayson Siver | MongoDB Database |
+| Alyssa Scott | Frontend development, UI/UX design, React components, authentication integration, responsive styling, project integration |
+| Lucas Brown | Express backend, RAWG API integration, API routes, search and filtering logic |
+| Francisco Tejeda-Villarreal | JWT authentication, login and registration, authentication middleware |
+| Grayson Siver | MongoDB Atlas, Mongoose models, favorites database |
 
 
 ## Local Installation and Setup
@@ -119,6 +136,14 @@ The interface was built using reusable React components with semantic HTML eleme
 | GET    | /api/rawg/search/:search | No            | Performs search query to RAWG API when input from search bar is received        | N/A                  | 200 OK          |
 | GET    | /api/rawg/next           | No            | Performs search query to RAWG API to get the next page of paginated results     | N/A                  | 200 OK          |
 | GET    | /api/rawg/prev           | No            | Performs search query to RAWG API to get the previous page of paginated results | N/A                  | 200 OK          |
-| GET    | /api/favorites           | ??????        | Returns all favorites from logged in user                                       | N/A                  | 200 OK          |
-| POST   | /api/favorites           | ??????        | Adds a game to the logged in user's favorites                                   | { "rawgId": 3498, "title": "GTA V", "coverImage": "..." }             | 201 Created     |
-| DELETE | /api/favorites/:id       | ??????        | Removes favorite by database ID                                                 | N/A                  | 200 OK          |
+| GET    | /api/favorites           | Yes        | Returns all favorites from logged in user                                       | N/A                  | 200 OK          |
+| POST   | /api/favorites           | Yes        | Adds a game to the logged in user's favorites                                   | { "rawgId": 3498, "title": "GTA V", "coverImage": "..." }             | 201 Created     |
+| DELETE | /api/favorites/:id       | Yes        | Removes favorite by database ID                                                 | N/A                  | 200 OK          |
+
+## Academic Project
+
+Developed for: COSC 3351 – Internet Programming
+
+Texas A&M University–Corpus Christi
+
+Summer 2026
