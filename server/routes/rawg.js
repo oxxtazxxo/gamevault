@@ -70,6 +70,7 @@ function validateDates(dateList){
 // If a filter type has multiple values, they should be sent in csv format I.E. &filter_type=value1,value2,value3
 // Fetches the game results from the RAWG api using the paramaters provided in the url and body object.
 rawgRouter.get('/search/:search', async (req, res) => {
+    console.log('in /search/:search');
     nextPageQuery = null;
     prevPageQuery = null;
     try{
