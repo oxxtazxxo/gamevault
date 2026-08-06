@@ -1,6 +1,5 @@
 // Base URL for the Express backend.
-const API_BASE_URL = "http://localhost:5000";
-
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 // Send a login request to the authentication API.
 export async function loginUser(credentials) {
 
