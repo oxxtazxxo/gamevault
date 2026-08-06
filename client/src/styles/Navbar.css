@@ -1,6 +1,6 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 30px;
 
@@ -16,12 +16,15 @@
 .logo {
   display: flex;
   align-items: center;
+  justify-self: start;
   gap: 12px;
 
   color: white;
   text-decoration: none;
 
-  transition: opacity 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .logo img {
@@ -38,12 +41,13 @@
 }
 
 .logo:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .nav-links {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 30px;
 }
 
@@ -56,6 +60,14 @@
   color: #6d8cff;
 }
 
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 12px;
+}
+
+.switch-mode-button,
 .login {
   padding: 10px 18px;
 
@@ -66,9 +78,51 @@
   color: white;
 
   font: inherit;
+  text-decoration: none;
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
+.switch-mode-button:hover,
 .login:hover {
   background: #6d8cff;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1000px) {
+  .navbar {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 16px;
+  }
+
+  .logo,
+  .navbar-actions {
+    justify-self: center;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+  }
+}
+
+/* Live Mode button (default blue). */
+.live-switch {
+  background: #4f73d9;
+}
+
+.live-switch:hover {
+  background: #6d8cff;
+}
+
+/* Demo Mode button (purple). */
+.demo-switch {
+  background: #7b5bd6;
+}
+
+.demo-switch:hover {
+  background: #9677ee;
 }

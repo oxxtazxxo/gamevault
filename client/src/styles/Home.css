@@ -1,0 +1,82 @@
+/* Center the current mode label directly beneath the Navbar. */
+.mode-banner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 42px;
+
+  border-top: 1px solid rgba(92, 123, 211, 0.18);
+}
+
+/* Shared shape and layout for both Live and Demo Mode banners. */
+.mode-banner span {
+  width: min(500px, 80%);
+  padding: 0.15rem 1rem 0.3rem;
+
+  text-align: center;
+
+  font-size: clamp(1.7rem, 3vw, 2.7rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+
+  border: 1px solid;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Purple styling for Demo Mode. */
+.home-page.demo .mode-banner span {
+  color: #efe6ff;
+
+  background: linear-gradient(
+    180deg,
+    rgba(109, 72, 176, 0.55),
+    rgba(74, 45, 122, 0.36)
+  );
+
+  border-color: rgba(163, 118, 255, 0.45);
+
+  box-shadow:
+    0 8px 22px rgba(32, 18, 64, 0.28),
+    inset 0 0 18px rgba(157, 126, 241, 0.12);
+
+  text-shadow:
+    0 0 12px rgba(188, 160, 255, 0.55),
+    0 0 24px rgba(137, 88, 240, 0.28);
+}
+
+/* Blue styling for Live Mode. */
+.home-page.live .mode-banner span {
+  color: #dbe3ff;
+
+  background: linear-gradient(
+    180deg,
+    rgba(48, 72, 145, 0.55),
+    rgba(25, 45, 105, 0.36)
+  );
+
+  border-color: rgba(91, 124, 221, 0.38);
+
+  box-shadow:
+    0 8px 22px rgba(4, 12, 45, 0.18),
+    inset 0 0 18px rgba(89, 119, 214, 0.08);
+
+  text-shadow:
+    0 0 12px rgba(100, 181, 255, 0.42),
+    0 0 22px rgba(70, 142, 235, 0.2);
+}
+
+/* Keep the banner readable on smaller screens. */
+@media (max-width: 600px) {
+  .mode-banner {
+    min-height: 36px;
+  }
+
+  .mode-banner span {
+    width: min(340px, 88%);
+    padding: 0.2rem 0.75rem 0.3rem;
+
+    font-size: clamp(1.35rem, 7vw, 2rem);
+  }
+}
