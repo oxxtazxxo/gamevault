@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 // Search the backend for games matching the user's query and filters.
 // Return only the list of RAWG game results needed by the frontend.
