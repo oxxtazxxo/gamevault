@@ -4,6 +4,8 @@ import logo2x from "../assets/images/gamevault-logo@2x.png";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <header className="navbar">
       <Link
@@ -31,7 +33,6 @@ function Navbar() {
       </nav>
 
       <div className="navbar-actions">
-        {/* Return to the mode selection page. */}
         <Link
           to="/"
           className={`switch-mode-button ${
@@ -43,8 +44,11 @@ function Navbar() {
           Switch Mode
         </Link>
 
-        <Link to="/login" className="login">
-          Login
+        <Link
+          to={user ? "/profile" : "/login"}
+          className="login"
+        >
+          {user ? "Profile" : "Login"}
         </Link>
       </div>
     </header>
