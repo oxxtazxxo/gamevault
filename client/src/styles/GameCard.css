@@ -128,3 +128,9 @@
   object-fit: cover;
   display: block;
 }
+
+.game-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

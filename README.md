@@ -8,30 +8,48 @@
 Discover. Track. Save.
 </p>
 
+## Live Deployment
+
+**Deployed Application:** https://gamevault-liart.vercel.app/
+
+**GitHub Repository:** https://github.com/oxxtazxxo/gamevault
+
 ## Overview
 
-GameVault is a full-stack web application built for gamers who want a simple way to discover new titles, search across multiple platforms, and manage their favorite games.
+GameVault is a full-stack web application designed for gamers who want a simple way to discover new titles, search across multiple platforms, and manage their favorite games.
 
-The application combines the RAWG Video Games API with a React frontend, Express backend, MongoDB Atlas database, and JWT authentication to create a modern game discovery experience.
+The application uses a React frontend, Express backend, MongoDB Atlas database, and JWT authentication to provide game discovery and personalized user features. GameVault includes both Live Mode and Demo Mode. Live Mode uses the RAWG Video Games API for real-time game data when the service is available, while Demo Mode uses built-in sample data so users can continue exploring the application if RAWG is unavailable.
+
+Authenticated users can create accounts, log in, maintain their session across page refreshes, and save or remove games from their personal Favorites collection.
 
 ## Key Features
 
+### Live & Demo Modes
+- Live Mode retrieves game information from the RAWG Video Games API
+- Demo Mode provides built-in sample data when the API is unavailable
+
 ### Game Discovery
-- Search for games using RAWG
-- Browse multiple platforms
-- View game information
+- Search for games
+- Browse featured titles
+- View game information, ratings, release dates, and supported platforms
+
+### Favorites
+- Save games to a personal Favorites collection
+- Remove games from Favorites
+- Prevent duplicate favorites
+- Favorites persist across authenticated sessions
 
 ### User Accounts
-- Registration
-- Login
+- User registration
+- Secure login
 - JWT Authentication
+- Persistent login sessions
 - User Profile
 
 ### Interface
 - Responsive React UI
-- Search filters
-- Sorting
-- Modern design
+- Search functionality
+- Modern, user-friendly design
 
 ### Homepage
 
@@ -67,18 +85,19 @@ View your account information and manage your authenticated session.
 
 | Layer | Technologies |
 |--------|--------------|
-| 🎨 Frontend | React, Vite, CSS3, React Icons |
+| 🎨 Frontend | React, Vite, CSS3, React Icons, React Router, Axios |
 | ⚙️ Backend | Node.js, Express.js |
 | 🗄️ Database | MongoDB Atlas, Mongoose |
 | 🔐 Authentication | JSON Web Tokens (JWT), bcryptjs |
-| 🎮 API | RAWG Video Games Database API |
+| 🎮 API | RAWG Video Games API |
+| 🚀 Deployment   | Vercel, Render  |
 | 📦 Version Control | Git, GitHub |
 
 GameVault combines a modern React frontend with an Express backend, MongoDB Atlas for persistent storage, JWT authentication for secure user sessions, and the RAWG Video Games API to deliver game discovery and user account functionality.
 
 ## Future Improvements
 
-- Favorites database integration
+- User reviews
 - User game collections
 - Advanced search filters
 - User avatars
@@ -89,10 +108,10 @@ GameVault combines a modern React frontend with an Express backend, MongoDB Atla
 
 | Member | Responsibility |
 |---------|----------------|
-| Alyssa Scott | Frontend development, UI/UX design, React components, authentication integration, responsive styling, project integration |
-| Lucas Brown | Express backend, RAWG API integration, API routes, search and filtering logic |
-| Francisco Tejeda-Villarreal | JWT authentication, login and registration, authentication middleware |
-| Grayson Siver | MongoDB Atlas, Mongoose models, favorites database |
+| Alyssa Scott | Frontend Development, UI/UX Design, React Components, Authentication Integration, Responsive Styling, Project integration |
+| Lucas Brown | Express backend, RAWG API integration, API Routes, Search and Filtering Logic |
+| Francisco Tejeda-Villarreal | JWT Authentication, Login and Registration, Authentication Middleware |
+| Grayson Siver | MongoDB Atlas, Mongoose Models, Favorites Database |
 
 
 ## Local Installation and Setup
@@ -111,6 +130,8 @@ GameVault combines a modern React frontend with an Express backend, MongoDB Atla
 | ----------- | --------------------------------------- | -------------------------------------------------------------------------------------------- |
 | `API_KEY`   | RAWG API key                            | 324adwsd3dasdf3tr3q3asjuk63zxf65                                                             |
 | `MONGO_URI` | URI link to your MongoDB Atlas instance | mongodb://mongo_db_username:mongo_password@ac-lowthoa-shard-00-00.hmarfvv.mongodb.net:123456 |
+| `JWT_SECRET` | Secret used to sign authentication tokens | `my_super_secret_key` |
+| `PORT` | Backend server port | `5000`
 
 - **Atlas Database Setup**
   - Ask a teammate to add you as a database user on the shared GameVault Atlas cluster (or create your own free cluster and share the connection details with the team)
@@ -125,7 +146,13 @@ GameVault combines a modern React frontend with an Express backend, MongoDB Atla
 ### Frontend Setup
 - `cd client`
 - `npm install`
-- `npm install react-icons`
+- Create a `.env.local` file inside `/client`:
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+For production, this variable should point to the deployed Render backend.
 - Start client server: `npm run dev`
 - Open browser and copy the displayed in the client console into the address bar. Ex. `http://localhost:5173/`
 
@@ -137,8 +164,39 @@ GameVault combines a modern React frontend with an Express backend, MongoDB Atla
 | GET    | /api/rawg/next           | No            | Performs search query to RAWG API to get the next page of paginated results     | N/A                  | 200 OK          |
 | GET    | /api/rawg/prev           | No            | Performs search query to RAWG API to get the previous page of paginated results | N/A                  | 200 OK          |
 | GET    | /api/favorites           | Yes        | Returns all favorites from logged in user                                       | N/A                  | 200 OK          |
+| POST | /api/auth/register | No | Registers a new user | { "username": "...", "password": "..." } | 201 Created |
+| POST | /api/auth/login | No | Authenticates a user and returns a JWT | { "username": "...", "password": "..." } | 200 OK |
 | POST   | /api/favorites           | Yes        | Adds a game to the logged in user's favorites                                   | { "rawgId": 3498, "title": "GTA V", "coverImage": "..." }             | 201 Created     |
 | DELETE | /api/favorites/:id       | Yes        | Removes favorite by database ID                                                 | N/A                  | 200 OK          |
+
+## User Roles and Workflows
+
+### Guest User
+Guest users can:
+- Browse featured games
+- Search for games
+- Switch between Live Mode and Demo Mode
+- View game information
+- Register or log in
+
+### Authenticated User
+Authenticated users can:
+- Access all guest features
+- Access their profiles
+- Save games to Favorites
+- Remove games from Favorites
+- Stay logged in across page refreshes
+
+### Typical Workflow
+1. Choose Live Mode or Demo Mode.
+2. Search or browse for games.
+3. Register or log in.
+4. Add games to Favorites.
+5. View or remove saved favorites from the Favorites page.
+
+## AI Assistance Disclosure
+
+AI tools, including ChatGPT, were used during development to assist with debugging, deployment troubleshooting, Git/GitHub workflow guidance, UI refinement, and documentation. Final implementation decisions and testing were completed by the project team.
 
 ## Academic Project
 

@@ -61,6 +61,7 @@ function FeaturedGames({ games = [] }) {
         {displayedGames.map((game) => (
           <GameCard
             key={game.id}
+            id={game.id}
             title={game.title}
             rating={game.rating}
             releaseDate={game.releaseDate}

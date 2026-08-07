@@ -1,0 +1,151 @@
+/* Main Favorites page layout. */
+.favorites-page {
+  min-height: calc(100vh - 160px);
+  padding: 4rem 1.5rem;
+}
+
+/* Keep the page content centered and readable. */
+.favorites-content {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+/* Page heading and description. */
+.favorites-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.favorites-header h1 {
+  margin: 0 0 0.75rem;
+
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  color: white;
+}
+
+.favorites-header p {
+  margin: 0;
+  color: #b8c6ef;
+  font-size: 1.05rem;
+}
+
+/* Loading, empty, and error messages. */
+.favorites-content > p {
+  margin: 2rem auto;
+  padding: 1rem 1.25rem;
+  max-width: 620px;
+
+  text-align: center;
+  color: #dce5ff;
+
+  background: rgba(20, 35, 89, 0.72);
+  border: 1px solid rgba(87, 123, 221, 0.35);
+  border-radius: 10px;
+}
+
+.favorites-content > p[role="alert"] {
+  color: #ffd4d4;
+  border-color: rgba(255, 112, 112, 0.45);
+  background: rgba(92, 25, 38, 0.45);
+}
+
+/* Responsive grid for saved games. */
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(260px, 1fr)
+  );
+  gap: 1.5rem;
+}
+
+/* Individual saved-game card. */
+.favorite-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  padding: 1.5rem;
+
+  background: linear-gradient(
+    180deg,
+    rgba(28, 45, 102, 0.9),
+    rgba(10, 18, 53, 0.96)
+  );
+
+  border: 1px solid rgba(81, 116, 214, 0.4);
+  border-radius: 16px;
+
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.24),
+    inset 0 0 22px rgba(75, 106, 207, 0.07);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.favorite-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(107, 145, 246, 0.65);
+
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.3),
+    0 0 22px rgba(74, 105, 214, 0.1);
+}
+
+.favorite-card h2 {
+  margin: 0 0 1rem;
+
+  color: white;
+  font-size: 1.45rem;
+}
+
+.favorite-card p {
+  margin: 0 0 1.5rem;
+
+  color: #b9c6ed;
+  line-height: 1.5;
+}
+
+/* Keep the remove button aligned at the bottom. */
+.favorite-card button {
+  margin-top: auto;
+  padding: 0.8rem 1rem;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #4f73d9;
+  color: white;
+
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.favorite-card button:hover {
+  background: #6d8cff;
+  transform: translateY(-1px);
+}
+
+.favorite-card button:focus-visible {
+  outline: 3px solid rgba(140, 170, 255, 0.7);
+  outline-offset: 3px;
+}
+
+/* Reduce spacing on smaller screens. */
+@media (max-width: 600px) {
+  .favorites-page {
+    padding: 2.5rem 1rem;
+  }
+
+  .favorite-card {
+    min-height: 200px;
+    padding: 1.25rem;
+  }
+}
