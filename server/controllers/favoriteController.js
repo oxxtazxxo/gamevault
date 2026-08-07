@@ -11,9 +11,19 @@ export const getFavorites = async (req, res) => {
 
 export const addFavorite = async (req, res) => {
     try {
-        const favorite = await Favorite.create({ ...req.body, user: req.user.id });
+        const favorite = await Favorite.create({
+            ...req.body,
+            user: req.user.id
+        });
+
         res.status(201).json(favorite);
     } catch (err) {
+        if (err.code === 11000) {
+            return res.status(409).json({
+                message: "This game is already in your favorites."
+            });
+        }
+
         res.status(400).json({ message: err.message });
     }
 };
